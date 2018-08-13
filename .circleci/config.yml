@@ -53,7 +53,7 @@ jobs:
             # Test the source code
             - run:
                 name: Unit Testing
-                command: cd project/application && npm run test -- --singleRun
+                command: cd project/application && npm run test -- --watch=false
 
 workflows:
     version: 2
