@@ -1,4 +1,4 @@
-# Angular Universal: server-side rendering
+# Angular Universal: server-side rendering [![CircleCI](https://circleci.com/gh/lazy-ants/angular-universal/tree/master.svg?style=svg)](https://circleci.com/gh/lazy-ants/angular-universal/tree/master)
 
 ## CLONE REPO
 
