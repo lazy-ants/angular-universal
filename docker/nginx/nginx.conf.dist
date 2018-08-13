@@ -41,6 +41,17 @@ http {
             return 200 "User-agent: *\nDisallow: /\n";
         }
 
+        error_page 502 /502.html;
+
+        location = /502.html {
+            try_files 502.html @error;
+            internal;
+        }
+
+        location @error {
+            root /var/www/angular-universal;
+        }
+
         error_log /var/log/nginx/angular-universal_error.log;
         access_log /var/log/nginx/angular-universal_access.log;
     }

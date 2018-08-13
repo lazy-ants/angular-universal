@@ -9,9 +9,10 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
-        "serve:ssr": "pm2 start dist/server.js",
+        "serve:ssr": "npm run silent:update && pm2 delete -s angular-universal || : && pm2 start dist/server.js --name angular-universal",
         "build:client-and-server-bundles": "ng run angular-universal--browser:build:production && ng run angular-universal--server:build:production",
-        "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
+        "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
+        "silent:update": "rm -rf dist && cp -r tmp dist && rm -rf tmp"
     },
     "private": true,
     "dependencies": {

@@ -24,7 +24,7 @@ docker exec -ti angular-universal_nodejs npm install
 docker exec -ti angular-universal_nodejs bash -c 'npm start'
 ```
 
-- in prod mode
+- in prod mode (bash deploy.sh as quick solution)
 
 ```
 docker-compose up -d --build
