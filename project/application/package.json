@@ -10,8 +10,7 @@
         "e2e": "ng e2e",
         "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
         "serve:ssr": "pm2 start dist/server.js",
-        "build:client-and-server-bundles":
-            "ng run angular-universal--browser:build:production && ng run angular-universal--server:build:production",
+        "build:client-and-server-bundles": "ng run angular-universal--browser:build:production && ng run angular-universal--server:build:production",
         "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
     },
     "private": true,
@@ -47,7 +46,7 @@
         "codelyzer": "~4.2.1",
         "jasmine-core": "~2.99.1",
         "jasmine-spec-reporter": "~4.2.1",
-        "karma": "~1.7.1",
+        "karma": "^2.0.0",
         "karma-chrome-launcher": "~2.2.0",
         "karma-coverage-istanbul-reporter": "~2.0.0",
         "karma-jasmine": "~1.1.1",
