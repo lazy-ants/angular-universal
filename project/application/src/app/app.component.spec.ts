@@ -17,11 +17,11 @@ describe('AppComponent', () => {
         })
     );
     it(
-        `should have as title 'angular ssr app'`,
+        `should have as title 'Welcome to angular ssr app!'`,
         async(() => {
             const fixture = TestBed.createComponent(AppComponent);
             const app = fixture.debugElement.componentInstance;
-            expect(app.title).toEqual('angular ssr app');
+            expect(app.title).toEqual('Welcome to angular ssr app!');
         })
     );
     it(
