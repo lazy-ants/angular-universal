@@ -1,0 +1,49 @@
+user www-data;
+worker_processes 4;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 2048;
+    multi_accept on;
+    use epoll;
+}
+
+http {
+    server_tokens off;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 15;
+    types_hash_max_size 2048;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    access_log off;
+    error_log off;
+    gzip on;
+    gzip_disable "msie6";
+    server_names_hash_bucket_size 64;
+    server {
+        server_name angular-universal.lazy-ants.com;
+        expires 0;
+
+        location / {
+            add_header 'Access-Control-Allow-Headers' 'Authorization,Content-Type,If-Match';
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_http_version 1.1;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+            proxy_pass http://nodejs:4000;
+        }
+
+        location /robots.txt {
+            add_header Content-Type text/plain;
+            return 200 "User-agent: *\nDisallow: /\n";
+        }
+
+        error_log /var/log/nginx/angular-universal_error.log;
+        access_log /var/log/nginx/angular-universal_access.log;
+    }
+
+    open_file_cache max=100;
+}
