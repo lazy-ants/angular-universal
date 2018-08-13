@@ -1,0 +1,63 @@
+version: 2
+
+# List of jobs
+jobs:
+    # The build and test job
+    build_and_test:
+        working_directory: ~/angular-universal
+        docker:
+            - image: circleci/node:8.9.0-browsers
+        steps:
+            # Checkout the code from the branch into the working_directory
+            - checkout
+            # Install the last version of Google Chrome
+            - run:
+                name: Update Google Chrome
+                command: |
+                    sudo apt-get update
+                    sudo apt-get install libappindicator3-1 libdbusmenu-gtk3-4 libindicator3-7
+                    curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                    sudo dpkg -i google-chrome.deb
+                    sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+                    rm google-chrome.deb
+            # Log the current branch
+            - run:
+                name: Show current branch
+                command: echo ${CIRCLE_BRANCH}
+            # Restore local dependencies from cache
+            - restore_cache:
+                keys:
+                - v1-dependencies-{{ checksum "project/application/package.json" }}
+                - v1-dependencies-
+            # Install project dependencies
+            - run:
+                name: Install local dependencies
+                command: cd project/application && npm install
+            # Cache local dependencies if they don't exist
+            - save_cache:
+                key: v1-dependencies-{{ checksum "project/application/package.json" }}
+                paths:
+                    - project/application/node_modules
+            # Build project
+            - run:
+                name: Building
+                command: cd project/application && npm run build:ssr
+            # Lint the source code
+            - run:
+                name: Linting
+                command: cd project/application && npm run lint
+            # E2E test
+            - run:
+                name: E2E Testing
+                command: cd project/application && npm run e2e
+            # Test the source code
+            - run:
+                name: Unit Testing
+                command: cd project/application && npm run test -- --singleRun
+
+workflows:
+    version: 2
+    # The build and test
+    build_and_test:
+        jobs:
+            - build_and_test
