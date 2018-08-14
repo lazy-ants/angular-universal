@@ -5,7 +5,9 @@ import { HomeComponent } from './home.component';
 describe('HomeComponent', () => {
     beforeEach(
         async(() => {
-            TestBed.configureTestingModule({ declarations: [HomeComponent] }).compileComponents();
+            TestBed.configureTestingModule({
+                declarations: [HomeComponent],
+            }).compileComponents();
         })
     );
     it(
