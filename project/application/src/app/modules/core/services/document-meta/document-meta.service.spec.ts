@@ -1,12 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { TransferState } from '@angular/platform-browser';
 
 import { DocumentMetaService } from './document-meta.service';
+import { TransferStateService } from '../transfer-state/transfer-state.service';
 
 describe('DocumentMetaService', () => {
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [DocumentMetaService],
-        });
+        TestBed.configureTestingModule({ providers: [DocumentMetaService, TransferState, TransferStateService] });
     });
 
     it(

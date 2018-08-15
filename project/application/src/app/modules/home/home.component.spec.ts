@@ -1,12 +1,42 @@
 import { TestBed, async } from '@angular/core/testing';
+import { TransferState } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 import { HomeComponent } from './home.component';
+import { SeoPropertiesService } from '../core/services/seo-properties/seo-properties.service';
+import { DocumentTitleService } from '../core/services/document-title/document-title.service';
+import { TransferStateService } from '../core/services/transfer-state/transfer-state.service';
+import { DocumentMetaService } from '../core/services/document-meta/document-meta.service';
+import { DocumentLinkService } from '../core/services/document-link/document-link.service';
 
 describe('HomeComponent', () => {
     beforeEach(
         async(() => {
             TestBed.configureTestingModule({
                 declarations: [HomeComponent],
+                providers: [
+                    {
+                        provide: ActivatedRoute,
+                        useValue: {
+                            snapshot: {
+                                data: {
+                                    seoProps: {
+                                        title: 'Page not found',
+                                    },
+                                    seoPropsToRemove: {
+                                        title: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    TransferState,
+                    TransferStateService,
+                    SeoPropertiesService,
+                    DocumentTitleService,
+                    DocumentMetaService,
+                    DocumentLinkService,
+                ],
             }).compileComponents();
         })
     );

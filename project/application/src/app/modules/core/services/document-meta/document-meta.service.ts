@@ -2,42 +2,67 @@ import { Injectable } from '@angular/core';
 import { Meta, MetaDefinition } from '@angular/platform-browser';
 
 import { CoreModule } from '../../core.module';
+import { TransferStateService } from '../transfer-state/transfer-state.service';
+
+interface PayloadDefinition {
+    payload: {
+        addTagsExecuted?: boolean;
+        updateTagExecuted?: boolean;
+        removeTagExecuted?: boolean;
+    };
+}
 
 @Injectable({
     providedIn: CoreModule,
 })
 export class DocumentMetaService {
-    constructor(private metaService: Meta) {}
+    private payloadServerName = 'DocumentMetaServicePayload';
 
-    public addTag(tag: MetaDefinition, forceCreation: boolean = false): HTMLMetaElement | null {
-        return this.metaService.addTag(tag, forceCreation);
-    }
+    constructor(private metaService: Meta, private transferStateService: TransferStateService) {}
 
-    public addTags(tags: MetaDefinition[], forceCreation: boolean = false): HTMLMetaElement[] {
-        return this.metaService.addTags(tags, forceCreation);
-    }
+    public addTags(tags: MetaDefinition[], forceCreation: boolean = false): void {
+        this.transferStateService
+            .savePayload(
+                () => {
+                    this.metaService.addTags(tags, forceCreation);
 
-    public getTag(attrSelector: string): HTMLMetaElement | null {
-        return this.metaService.getTag(attrSelector);
-    }
-
-    public getTags(attrSelector: string): HTMLMetaElement[] {
-        return this.metaService.getTags(attrSelector);
-    }
-
-    public updateTag(tag: MetaDefinition, selector?: string): HTMLMetaElement | null {
-        return this.metaService.updateTag(tag, selector);
-    }
-
-    public removeTag(attrSelector: string): void {
-        this.metaService.removeTag(attrSelector);
+                    return new Promise(resolve => resolve({ payload: { addTagsExecuted: true } }));
+                },
+                this.payloadServerName,
+                { payload: null }
+            )
+            .then(
+                (payload: PayloadDefinition) => {
+                    // payload received
+                },
+                error => {
+                    // error while receiving payload
+                }
+            );
     }
 
     public removeTags(attrSelectors: string[]): void {
-        attrSelectors.map((attrSelector: string) => this.removeTag(attrSelector));
+        this.transferStateService
+            .savePayload(
+                () => {
+                    attrSelectors.map((attrSelector: string) => this.removeTag(attrSelector));
+
+                    return new Promise(resolve => resolve({ payload: { removeTagsExecuted: true } }));
+                },
+                this.payloadServerName,
+                { payload: null }
+            )
+            .then(
+                (payload: PayloadDefinition) => {
+                    // payload received
+                },
+                error => {
+                    // error while receiving payload
+                }
+            );
     }
 
-    public removeTagElement(meta: HTMLMetaElement): void {
-        this.metaService.removeTagElement(meta);
+    private removeTag(attrSelector: string): void {
+        this.metaService.removeTag(attrSelector);
     }
 }

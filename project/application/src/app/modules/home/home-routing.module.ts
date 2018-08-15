@@ -7,6 +7,14 @@ export const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
+        data: {
+            seoProps: {
+                title: 'Angular Universal: server-side rendering',
+            },
+            seoPropsToRemove: {
+                title: true,
+            },
+        },
     },
 ];
 
