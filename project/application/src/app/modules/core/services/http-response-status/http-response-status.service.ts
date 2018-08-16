@@ -26,16 +26,18 @@ export class HttpResponseStatusService {
     public setStatus(code: number, message: string): void {
         this.transferStateService
             .savePayload(
-                () => {
-                    if (this.res) {
-                        this.res.statusCode = code;
-                        this.res.statusMessage = message;
-                    }
+                () =>
+                    new Promise(resolve => {
+                        if (this.res) {
+                            this.res.statusCode = code;
+                            this.res.statusMessage = message;
+                        }
 
-                    return new Promise(resolve => resolve({ payload: { setStatusExecuted: true } }));
-                },
-                this.payloadServerName,
-                { payload: null }
+                        const payload = { setStatusExecuted: true };
+
+                        resolve({ payload });
+                    }),
+                this.payloadServerName
             )
             .then(
                 (payload: PayloadDefinition) => {

@@ -37,13 +37,14 @@ export class DocumentLinkService {
     public addTags(tags: LinkDefinition[]): void {
         this.transferStateService
             .savePayload(
-                () => {
-                    tags.map((tag: LinkDefinition) => this.addTag(tag));
+                () =>
+                    new Promise(resolve => {
+                        tags.map((tag: LinkDefinition) => this.addTag(tag));
+                        const payload = { addTagsExecuted: true };
 
-                    return new Promise(resolve => resolve({ payload: { addTagsExecuted: true } }));
-                },
-                this.payloadServerName,
-                { payload: null }
+                        resolve({ payload });
+                    }),
+                this.payloadServerName
             )
             .then(
                 (payload: PayloadDefinition) => {
@@ -58,13 +59,14 @@ export class DocumentLinkService {
     public removeTags(attrSelectors: string[]): void {
         this.transferStateService
             .savePayload(
-                () => {
-                    attrSelectors.map((attrSelector: string) => this.removeTag(attrSelector));
+                () =>
+                    new Promise(resolve => {
+                        attrSelectors.map((attrSelector: string) => this.removeTag(attrSelector));
+                        const payload = { removeTagsExecuted: true };
 
-                    return new Promise(resolve => resolve({ payload: { removeTagsExecuted: true } }));
-                },
-                this.payloadServerName,
-                { payload: null }
+                        resolve({ payload });
+                    }),
+                this.payloadServerName
             )
             .then(
                 (payload: PayloadDefinition) => {

@@ -23,13 +23,14 @@ export class DocumentMetaService {
     public addTags(tags: MetaDefinition[], forceCreation: boolean = false): void {
         this.transferStateService
             .savePayload(
-                () => {
-                    this.metaService.addTags(tags, forceCreation);
+                () =>
+                    new Promise(resolve => {
+                        this.metaService.addTags(tags, forceCreation);
+                        const payload = { addTagsExecuted: true };
 
-                    return new Promise(resolve => resolve({ payload: { addTagsExecuted: true } }));
-                },
-                this.payloadServerName,
-                { payload: null }
+                        resolve({ payload });
+                    }),
+                this.payloadServerName
             )
             .then(
                 (payload: PayloadDefinition) => {
@@ -44,13 +45,14 @@ export class DocumentMetaService {
     public removeTags(attrSelectors: string[]): void {
         this.transferStateService
             .savePayload(
-                () => {
-                    attrSelectors.map((attrSelector: string) => this.removeTag(attrSelector));
+                () =>
+                    new Promise(resolve => {
+                        attrSelectors.map((attrSelector: string) => this.removeTag(attrSelector));
+                        const payload = { removeTagsExecuted: true };
 
-                    return new Promise(resolve => resolve({ payload: { removeTagsExecuted: true } }));
-                },
-                this.payloadServerName,
-                { payload: null }
+                        resolve({ payload });
+                    }),
+                this.payloadServerName
             )
             .then(
                 (payload: PayloadDefinition) => {

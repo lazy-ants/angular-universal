@@ -13,7 +13,8 @@ export class TransferStateService {
 
     constructor(@Inject(PLATFORM_ID) private platformId: Object, private transferState: TransferState) {}
 
-    public savePayload(next: () => Promise<any>, payloadServerName: string, defaultPayload: any): Promise<any> {
+    public savePayload(next: () => Promise<any>, payloadServerName: string): Promise<any> {
+        const defaultPayload = { payload: null };
         const payloadStateKey = this.createStateKey(payloadServerName);
 
         return new Promise(resolve => {

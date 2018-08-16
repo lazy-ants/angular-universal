@@ -21,13 +21,14 @@ export class DocumentTitleService {
     public setTitle(value: string): void {
         this.transferStateService
             .savePayload(
-                () => {
-                    this.titleService.setTitle(value);
+                () =>
+                    new Promise(resolve => {
+                        this.titleService.setTitle(value);
+                        const payload = { setTitleExecuted: true };
 
-                    return new Promise(resolve => resolve({ payload: { setTitleExecuted: true } }));
-                },
-                this.payloadServerName,
-                { payload: null }
+                        resolve({ payload });
+                    }),
+                this.payloadServerName
             )
             .then(
                 (payload: PayloadDefinition) => {
