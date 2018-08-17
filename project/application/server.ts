@@ -27,6 +27,11 @@ import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 // Our index.html we'll use as our template
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+const domino = require('domino');
+const win = domino.createWindow(template);
+
+global['window'] = win;
+global['document'] = win.document;
 
 app.engine('html', (_, options, callback) => {
     renderModuleFactory(AppServerModuleNgFactory, {
@@ -58,6 +63,7 @@ app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
 // All regular routes use the Universal engine
 app.get('*', (req, res) => {
+    global['navigator'] = req['headers']['user-agent'];
     res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
 });
 
