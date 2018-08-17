@@ -8,7 +8,11 @@
             "sourceRoot": "src",
             "projectType": "application",
             "prefix": "app",
-            "schematics": {},
+            "schematics": {
+                "@schematics/angular:component": {
+                    "styleext": "scss"
+                }
+            },
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
@@ -19,7 +23,7 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.app.json",
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles.css"],
+                        "styles": ["src/styles.scss"],
                         "scripts": []
                     },
                     "configurations": {
@@ -66,7 +70,7 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.spec.json",
                         "karmaConfig": "src/karma.conf.js",
-                        "styles": ["src/styles.css"],
+                        "styles": ["src/styles.scss"],
                         "scripts": [],
                         "assets": ["src/favicon.ico", "src/assets"]
                     }
@@ -85,7 +89,11 @@
             "sourceRoot": "src",
             "projectType": "application",
             "prefix": "app",
-            "schematics": {},
+            "schematics": {
+                "@schematics/angular:component": {
+                    "styleext": "scss"
+                }
+            },
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:server",

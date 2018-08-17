@@ -8,7 +8,7 @@ import { SeoPropertiesService } from '../core/services/seo-properties/seo-proper
 @Component({
     selector: 'app-not-found',
     templateUrl: './not-found.component.html',
-    styleUrls: ['./not-found.component.css'],
+    styleUrls: ['./not-found.component.scss'],
 })
 export class NotFoundComponent implements OnInit, OnDestroy {
     title = 'Page not found';
