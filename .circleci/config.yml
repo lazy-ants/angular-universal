@@ -3,7 +3,7 @@ version: 2
 # List of jobs
 jobs:
     # The build and test job
-    build_and_test:
+    build-test:
         working_directory: ~/angular-universal
         docker:
             - image: circleci/node:8.9.0-browsers
@@ -54,10 +54,32 @@ jobs:
             - run:
                 name: Unit Testing
                 command: cd project/application && npm run test -- --watch=false
+    # The deploy job
+    deploy:
+        machine:
+            enabled: true
+        environment:
+            FINGERPRINT: 8c:c8:d3:84:56:47:d7:28:13:2a:d8:2b:4e:53:0e:c0
+            SSH_USER: la
+            SSH_HOST: angular-universal.lazy-ants.com
+        steps:
+            - add_ssh_keys:
+                fingerprints:
+                    - "$FINGERPRINT" #https://circleci.com/docs/2.0/add-ssh-key
+            - run:
+                name: Deploy Over SSH
+                command: |
+                    ssh $SSH_USER@$SSH_HOST "cd /var/www/angular-universal && bash deploy-circleci.sh"
 
 workflows:
     version: 2
-    # The build and test
-    build_and_test:
+    # The build, test and deploy
+    build-test_deploy:
         jobs:
-            - build_and_test
+            - build-test
+            - deploy:
+                requires:
+                    - build-test
+                filters:
+                    branches:
+                        only: master
