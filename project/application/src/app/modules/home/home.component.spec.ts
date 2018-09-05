@@ -1,6 +1,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { TransferState } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { TransferHttpService } from '@gorniv/ngx-transfer-http';
 
 import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
@@ -11,6 +12,7 @@ import { TransferStateService } from '../core/services/transfer-state/transfer-s
 import { DocumentMetaService } from '../core/services/document-meta/document-meta.service';
 import { DocumentLinkService } from '../core/services/document-link/document-link.service';
 import { HttpRequestDataService } from '../core/services/http-request-data/http-request-data.service';
+import { TestingService } from '../core/http/testing/testing.service';
 
 describe('HomeComponent', () => {
     let fixture: ComponentFixture<HomeComponent>;
@@ -36,12 +38,14 @@ describe('HomeComponent', () => {
                         },
                     },
                     TransferState,
+                    TransferHttpService,
                     TransferStateService,
                     SeoPropertiesService,
                     DocumentTitleService,
                     DocumentMetaService,
                     DocumentLinkService,
                     HttpRequestDataService,
+                    TestingService,
                 ],
             }).compileComponents();
             fixture = TestBed.createComponent(HomeComponent);

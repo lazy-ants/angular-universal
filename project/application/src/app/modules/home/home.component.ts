@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LocaleService, TranslationService, Language, DefaultLocale, Currency } from 'angular-l10n';
 
 import { I18nLocales, I18nTimezone } from '../i18n/i18n.module';
 import { SeoPropertiesService } from '../core/services/seo-properties/seo-properties.service';
+import { TestingService as HttpTestingService } from '../core/http/testing/testing.service';
 
 @Component({
     selector: 'app-home',
@@ -27,11 +29,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         @Inject(PLATFORM_ID) private platformId: Object,
         private locale: LocaleService,
         private translation: TranslationService,
-        private seoPropertiesService: SeoPropertiesService
+        private seoPropertiesService: SeoPropertiesService,
+        private httpTestingService: HttpTestingService
     ) {}
 
     ngOnInit() {
-        this.seoPropertiesService.setSeoProps(this.route.snapshot.data.seoProps);
+        this.setSeoProps();
+        this.testHttpService();
         this.translation.translationChanged().subscribe(() => {
             this.title = this.translation.translate('title');
         });
@@ -59,8 +63,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.selectLocale(language, country, currency);
     }
 
+    private setSeoProps() {
+        this.seoPropertiesService.setSeoProps(this.route.snapshot.data.seoProps);
+    }
+
     private selectLocale(language: string, country: string, currency: string): void {
         this.locale.setDefaultLocale(language, country);
         this.locale.setCurrentCurrency(currency);
+    }
+
+    private testHttpService() {
+        this.httpTestingService.testHttpService().subscribe((data: HttpResponse<any>) => {
+            console.log(data);
+        });
     }
 }
