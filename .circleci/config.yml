@@ -20,6 +20,18 @@ jobs:
                     sudo dpkg -i google-chrome.deb
                     sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
                     rm google-chrome.deb
+            # Install pm2
+            - run:
+                name: Install pm2
+                command: sudo npm install -g pm2
+            # Install full-icu
+            - run:
+                name: Install full-icu
+                command: |
+                    sudo npm install --unsafe-perm -g full-icu
+                    echo 'export NODE_ICU_DATA=/usr/local/lib/node_modules/full-icu' >> ~/.bashrc
+                    echo 'export PATH=$NODE_ICU_DATA:$PATH' >> ~/.bashrc
+                    source ~/.bashrc
             # Log the current branch
             - run:
                 name: Show current branch
@@ -42,6 +54,19 @@ jobs:
             - run:
                 name: Building
                 command: cd project/application && npm run build:ssr
+            # Running the Nodejs server instance
+            - run:
+                name: Running the instance Nodejs server
+                command: cd project/application && npm run serve:ssr
+            - run: sleep 15 # workaround pm2 auto restart issue
+            # Check the Nodejs server status
+            - run:
+                name: Check the Nodejs server status
+                command: bash pm2-health-check-circleci.sh
+            # Stop the Nodejs server
+            - run:
+                name: Stoping Nodejs server
+                command: cd project/application && npm run pm2:stop
             # Lint the source code
             - run:
                 name: Linting
@@ -59,9 +84,9 @@ jobs:
         machine:
             enabled: true
         environment:
-            FINGERPRINT: 8c:c8:d3:84:56:47:d7:28:13:2a:d8:2b:4e:53:0e:c0
-            SSH_USER: la
-            SSH_HOST: angular-universal.lazy-ants.com
+            FINGERPRINT: 8c:c8:d3:84:56:47:d7:28:13:2a:d8:2b:4e:53:0e:c0 # Replace this with actual value
+            SSH_USER: la # Replace this with actual value
+            SSH_HOST: angular-universal.lazy-ants.com # Replace this with actual value
         steps:
             - add_ssh_keys:
                 fingerprints:
@@ -69,7 +94,7 @@ jobs:
             - run:
                 name: Deploy Over SSH
                 command: |
-                    ssh $SSH_USER@$SSH_HOST "cd /var/www/angular-universal && bash deploy-circleci.sh"
+                    ssh $SSH_USER@$SSH_HOST "cd /var/www/angular-universal && git status && git checkout -- . && git pull origin master && bash deploy-circleci.sh" # Replace /var/www/angular-universal path with actual value
 
 workflows:
     version: 2
