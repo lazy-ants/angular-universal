@@ -1,18 +1,23 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { TransferState } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { HomeComponent } from './home.component';
+import { SharedModule } from '../shared/shared.module';
+import { I18nModule } from '../i18n/i18n.module';
 import { SeoPropertiesService } from '../core/services/seo-properties/seo-properties.service';
 import { DocumentTitleService } from '../core/services/document-title/document-title.service';
 import { TransferStateService } from '../core/services/transfer-state/transfer-state.service';
 import { DocumentMetaService } from '../core/services/document-meta/document-meta.service';
 import { DocumentLinkService } from '../core/services/document-link/document-link.service';
+import { HttpRequestDataService } from '../core/services/http-request-data/http-request-data.service';
 
 describe('HomeComponent', () => {
+    let fixture: ComponentFixture<HomeComponent>;
     beforeEach(
         async(() => {
             TestBed.configureTestingModule({
+                imports: [SharedModule, I18nModule],
                 declarations: [HomeComponent],
                 providers: [
                     {
@@ -21,7 +26,7 @@ describe('HomeComponent', () => {
                             snapshot: {
                                 data: {
                                     seoProps: {
-                                        title: 'Page not found',
+                                        title: 'Angular Universal: server-side rendering',
                                     },
                                     seoPropsToRemove: {
                                         title: true,
@@ -36,14 +41,15 @@ describe('HomeComponent', () => {
                     DocumentTitleService,
                     DocumentMetaService,
                     DocumentLinkService,
+                    HttpRequestDataService,
                 ],
             }).compileComponents();
+            fixture = TestBed.createComponent(HomeComponent);
         })
     );
     it(
         'should create the app',
         async(() => {
-            const fixture = TestBed.createComponent(HomeComponent);
             const app = fixture.debugElement.componentInstance;
             expect(app).toBeTruthy();
         })
@@ -51,15 +57,13 @@ describe('HomeComponent', () => {
     it(
         `should have as title 'Home page!'`,
         async(() => {
-            const fixture = TestBed.createComponent(HomeComponent);
             const app = fixture.debugElement.componentInstance;
-            expect(app.title).toEqual('Home page!');
+            expect(app.title).toEqual(undefined);
         })
     );
     it(
         'should render title in a h1 tag',
         async(() => {
-            const fixture = TestBed.createComponent(HomeComponent);
             fixture.detectChanges();
             const compiled = fixture.debugElement.nativeElement;
             expect(compiled.querySelector('h1').textContent).toContain('Home page!');

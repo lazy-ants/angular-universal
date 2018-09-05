@@ -28,6 +28,7 @@
         "@angular/router": "^6.1.0",
         "@nguniversal/express-engine": "6.0.0",
         "@nguniversal/module-map-ngfactory-loader": "6.0.0",
+        "angular-l10n": "^5.1.0",
         "classlist.js": "^1.1.20150312",
         "core-js": "^2.5.4",
         "domino": "^2.1.0",

@@ -1,1 +1,9 @@
-<h1>{{ title }}</h1>
+<button (click)="selectEnLocale()">United Kingdom</button>
+<button (click)="selectDeLocale()">Germany</button>
+
+<h1>{{ title }}!</h1>
+<h3>{{ 'greetings.hello' | translate:lang }}!</h3>
+
+<p>{{ today | l10nDate:defaultLocale:'short':i18nTimezone }}</p>
+<p>{{ number | l10nDecimal:defaultLocale:'1.3-3' }}</p>
+<p>{{ cash | l10nCurrency:defaultLocale:currency:'symbol':'1.2-2' }}</p>
