@@ -12,10 +12,7 @@ describe('ServerAnimationService', () => {
         });
     });
 
-    it(
-        'should be created',
-        inject([ServerAnimationService], (service: ServerAnimationService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([ServerAnimationService], (service: ServerAnimationService) => {
+        expect(service).toBeTruthy();
+    }));
 });

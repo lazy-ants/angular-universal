@@ -9,10 +9,7 @@ describe('DocumentLinkService', () => {
         TestBed.configureTestingModule({ providers: [DocumentLinkService, TransferState, TransferStateService] });
     });
 
-    it(
-        'should be created',
-        inject([DocumentLinkService], (service: DocumentLinkService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([DocumentLinkService], (service: DocumentLinkService) => {
+        expect(service).toBeTruthy();
+    }));
 });

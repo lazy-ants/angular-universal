@@ -9,10 +9,7 @@ describe('HttpRequestDataService', () => {
         });
     });
 
-    it(
-        'should be created',
-        inject([HttpRequestDataService], (service: HttpRequestDataService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([HttpRequestDataService], (service: HttpRequestDataService) => {
+        expect(service).toBeTruthy();
+    }));
 });

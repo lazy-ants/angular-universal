@@ -9,10 +9,7 @@ describe('DocumentMetaService', () => {
         TestBed.configureTestingModule({ providers: [DocumentMetaService, TransferState, TransferStateService] });
     });
 
-    it(
-        'should be created',
-        inject([DocumentMetaService], (service: DocumentMetaService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([DocumentMetaService], (service: DocumentMetaService) => {
+        expect(service).toBeTruthy();
+    }));
 });

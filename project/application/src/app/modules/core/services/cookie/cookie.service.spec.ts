@@ -8,10 +8,7 @@ describe('CookieService', () => {
         TestBed.configureTestingModule({ providers: [CookieService, HttpRequestDataService] });
     });
 
-    it(
-        'should be created',
-        inject([CookieService], (service: CookieService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([CookieService], (service: CookieService) => {
+        expect(service).toBeTruthy();
+    }));
 });

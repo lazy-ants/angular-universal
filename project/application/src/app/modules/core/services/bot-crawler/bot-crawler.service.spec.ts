@@ -11,10 +11,7 @@ describe('BotCrawlerService', () => {
         });
     });
 
-    it(
-        'should be created',
-        inject([BotCrawlerService], (service: BotCrawlerService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([BotCrawlerService], (service: BotCrawlerService) => {
+        expect(service).toBeTruthy();
+    }));
 });

@@ -9,10 +9,7 @@ describe('DocumentTitleService', () => {
         TestBed.configureTestingModule({ providers: [DocumentTitleService, TransferState, TransferStateService] });
     });
 
-    it(
-        'should be created',
-        inject([DocumentTitleService], (service: DocumentTitleService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([DocumentTitleService], (service: DocumentTitleService) => {
+        expect(service).toBeTruthy();
+    }));
 });

@@ -11,10 +11,7 @@ describe('HttpResponseStatusService', () => {
         });
     });
 
-    it(
-        'should be created',
-        inject([HttpResponseStatusService], (service: HttpResponseStatusService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([HttpResponseStatusService], (service: HttpResponseStatusService) => {
+        expect(service).toBeTruthy();
+    }));
 });

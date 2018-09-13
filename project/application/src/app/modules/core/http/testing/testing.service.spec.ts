@@ -14,19 +14,13 @@ describe('TestingService', () => {
         });
     });
 
-    it(
-        'should be created',
-        inject([TestingService], (service: TestingService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([TestingService], (service: TestingService) => {
+        expect(service).toBeTruthy();
+    }));
 
-    it(
-        'should perform http request with 200 code',
-        inject([TestingService], (service: TestingService) => {
-            service.testHttpService().subscribe((data: HttpResponse<any>) => {
-                expect(data.status).toEqual(200);
-            });
-        })
-    );
+    it('should perform http request with 200 code', inject([TestingService], (service: TestingService) => {
+        service.testHttpService().subscribe((data: HttpResponse<any>) => {
+            expect(data.status).toEqual(200);
+        });
+    }));
 });

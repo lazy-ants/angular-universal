@@ -14,9 +14,12 @@ import { TestingService as HttpTestingService } from '../core/http/testing/testi
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-    @Language() lang: string;
-    @DefaultLocale() defaultLocale: string;
-    @Currency() currency: string;
+    @Language()
+    lang: string;
+    @DefaultLocale()
+    defaultLocale: string;
+    @Currency()
+    currency: string;
     i18nLocales = I18nLocales;
     i18nTimezone = I18nTimezone;
     title: string;

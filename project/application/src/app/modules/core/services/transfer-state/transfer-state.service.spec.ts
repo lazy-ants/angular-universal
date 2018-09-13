@@ -10,10 +10,7 @@ describe('TransferStateService', () => {
         });
     });
 
-    it(
-        'should be created',
-        inject([TransferStateService], (service: TransferStateService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([TransferStateService], (service: TransferStateService) => {
+        expect(service).toBeTruthy();
+    }));
 });

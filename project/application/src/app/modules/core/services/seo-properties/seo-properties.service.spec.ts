@@ -21,10 +21,7 @@ describe('SeoPropertiesService', () => {
         });
     });
 
-    it(
-        'should be created',
-        inject([SeoPropertiesService], (service: SeoPropertiesService) => {
-            expect(service).toBeTruthy();
-        })
-    );
+    it('should be created', inject([SeoPropertiesService], (service: SeoPropertiesService) => {
+        expect(service).toBeTruthy();
+    }));
 });

@@ -9,28 +9,20 @@ import { TransferStateService } from './modules/core/services/transfer-state/tra
 
 describe('AppComponent', () => {
     let fixture: ComponentFixture<AppComponent>;
-    beforeEach(
-        async(() => {
-            TestBed.configureTestingModule({
-                imports: [RouterTestingModule],
-                declarations: [AppComponent],
-                providers: [ServerAnimationService, BotCrawlerService, TransferState, TransferStateService],
-            }).compileComponents();
-            fixture = TestBed.createComponent(AppComponent);
-        })
-    );
-    it(
-        'should create the app',
-        async(() => {
-            const app = fixture.debugElement.componentInstance;
-            expect(app).toBeTruthy();
-        })
-    );
-    it(
-        `should have as title 'Welcome to angular ssr app!'`,
-        async(() => {
-            const app = fixture.debugElement.componentInstance;
-            expect(app.title).toEqual('Welcome to angular ssr app!');
-        })
-    );
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule],
+            declarations: [AppComponent],
+            providers: [ServerAnimationService, BotCrawlerService, TransferState, TransferStateService],
+        }).compileComponents();
+        fixture = TestBed.createComponent(AppComponent);
+    }));
+    it('should create the app', async(() => {
+        const app = fixture.debugElement.componentInstance;
+        expect(app).toBeTruthy();
+    }));
+    it(`should have as title 'Welcome to angular ssr app!'`, async(() => {
+        const app = fixture.debugElement.componentInstance;
+        expect(app.title).toEqual('Welcome to angular ssr app!');
+    }));
 });
