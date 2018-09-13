@@ -47,7 +47,7 @@ export class DocumentLinkService {
                 this.payloadServerName
             )
             .then(
-                (payload: PayloadDefinition) => {
+                (res: PayloadDefinition) => {
                     // payload received
                 },
                 error => {
@@ -69,7 +69,7 @@ export class DocumentLinkService {
                 this.payloadServerName
             )
             .then(
-                (payload: PayloadDefinition) => {
+                (res: PayloadDefinition) => {
                     // payload received
                 },
                 error => {

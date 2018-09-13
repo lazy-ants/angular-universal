@@ -19,6 +19,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./tmp/server/main');
+const isBot = require('isbot');
 
 // Import module map for lazy loading
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
@@ -64,6 +65,13 @@ app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 // All regular routes use the Universal engine
 app.get('*', (req, res) => {
     global['navigator'] = req['headers']['user-agent'];
+    const userAgent = req['headers']['user-agent'];
+
+    req['headers']['crawler'] = false;
+    if (isBot(userAgent) === true) {
+        req['headers']['crawler'] = true;
+    }
+
     res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
 });
 

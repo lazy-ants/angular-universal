@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { ServerAnimationService } from './modules/core/services/server-animation/server-animation.service';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'Welcome to angular ssr app!';
+
+    constructor(public serverAnimationService: ServerAnimationService) {}
 }

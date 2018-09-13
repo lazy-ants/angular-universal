@@ -33,7 +33,7 @@ export class DocumentMetaService {
                 this.payloadServerName
             )
             .then(
-                (payload: PayloadDefinition) => {
+                (res: PayloadDefinition) => {
                     // payload received
                 },
                 error => {
@@ -55,7 +55,7 @@ export class DocumentMetaService {
                 this.payloadServerName
             )
             .then(
-                (payload: PayloadDefinition) => {
+                (res: PayloadDefinition) => {
                     // payload received
                 },
                 error => {

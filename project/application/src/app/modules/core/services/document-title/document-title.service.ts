@@ -31,7 +31,7 @@ export class DocumentTitleService {
                 this.payloadServerName
             )
             .then(
-                (payload: PayloadDefinition) => {
+                (res: PayloadDefinition) => {
                     // payload received
                 },
                 error => {
