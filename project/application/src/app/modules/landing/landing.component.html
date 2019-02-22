@@ -1,0 +1,6 @@
+<h1>{{ title }}!</h1>
+<h3>{{ 'greetings.hello' | translate:lang }}!</h3>
+
+<p>Date value: {{ dateValue | l10nDate:defaultLocale:'short':i18nTimezone }}</p>
+<p>Number value: {{ numberValue | l10nDecimal:defaultLocale:'1.2-2' }}</p>
+<p>Cash value: {{ cashValue | l10nCurrency:defaultLocale:currency:'symbol':'1.2-2' }}</p>
