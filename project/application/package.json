@@ -19,7 +19,7 @@
         "pm2:stop": "pm2 delete -s example.web || :",
         "build:client-and-server-bundles": "ng run example-web--browser:build:production && ng run example-web--server:build:production",
         "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
-        "silent:update": "rm -rf dist && cp -r tmp dist && rm -rf tmp"
+        "silent:update": "rm -rf dist && cp -r tmp dist"
     },
     "private": true,
     "husky": {
