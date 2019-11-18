@@ -1,0 +1,21 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../out-tsc/app",
+        "baseUrl": "./",
+        "module": "commonjs",
+        "types": [],
+        "paths": {
+            "@app/*": ["./app/*"],
+            "@configs/*": ["./app/configs/*"],
+            "@modules/*": ["./app/modules/*"],
+            "@core/*": ["./app/modules/core/*"],
+            "@shared/*": ["./app/modules/shared/*"],
+            "@pages/*": ["./app/pages/*"]
+        }
+    },
+    "exclude": ["test.ts", "**/*.spec.ts"],
+    "angularCompilerOptions": {
+        "entryModule": "app/app.server.module#AppServerModule"
+    }
+}

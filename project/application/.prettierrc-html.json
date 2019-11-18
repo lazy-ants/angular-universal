@@ -1,0 +1,6 @@
+{
+  "printWidth": 120,
+  "parser": "angular",
+  "tabWidth": 4,
+  "htmlWhitespaceSensitivity": "strict"
+}

@@ -1,0 +1,10 @@
+version: "2.0"
+
+services:
+    nodejs:
+        ports:
+            - 4200:4200
+
+    nginx:
+        ports:
+            - 80:80
