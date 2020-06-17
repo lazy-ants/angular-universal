@@ -1,0 +1,22 @@
+version: "2.0"
+
+services:
+    application:
+        image: debian:jessie
+        volumes:
+            - ./project/application:/var/www/app
+        tty: true
+
+    nodejs:
+        build: docker/nodejs
+        restart: always
+        volumes_from:
+            - application
+        stdin_open: true
+        tty: true
+
+    nginx:
+        build: docker/nginx
+        restart: always
+        volumes_from:
+            - application

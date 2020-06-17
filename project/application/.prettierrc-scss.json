@@ -1,0 +1,6 @@
+{
+    "printWidth": 120,
+    "parser": "scss",
+    "tabWidth": 4,
+    "singleQuote": true
+}
